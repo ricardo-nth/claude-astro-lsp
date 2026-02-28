@@ -3,7 +3,7 @@
   "description": "Astro code intelligence for Claude Code — on-demand diagnostics and optional full LSP",
   "owner": {
     "name": "Ricardo",
-    "email": "ricardo@nth.dev"
+    "email": "ricardo@ricardonth.com"
   },
   "plugins": [
     {

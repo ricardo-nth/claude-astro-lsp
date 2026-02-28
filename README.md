@@ -5,7 +5,7 @@ Astro code intelligence for [Claude Code](https://claude.com/claude-code). Ships
 | Plugin | What | Memory | Install |
 |--------|------|--------|---------|
 | **`astro-check`** | On-demand diagnostics via `/astro-check:check` | 0 (runs and exits) | Always enabled |
-| **`astro-lsp`** | Full language server — real-time diagnostics, go-to-definition, references | ~400MB | Opt-in for heavy sessions |
+| **`astro-lsp`** | Full language server — real-time diagnostics, go-to-definition, references | **~1.2GB** | Opt-in for heavy sessions |
 
 ## Install
 
@@ -38,6 +38,8 @@ After editing `.astro` files, run `pnpm astro check` before considering the task
 
 ### Full LSP (heavy sessions)
 
+> **Memory warning:** The Astro language server is built on Volar and spawns its own TypeScript server internally. Expect **~1.2GB total memory** (Claude Code + Astro LS + tsserver). This is inherent to the Volar architecture — the bulk is TypeScript loading your project graph, not something that can be optimised away. Use `/astro-check:check` for normal work and only enable the full LSP when you need persistent real-time diagnostics.
+
 For sessions with lots of `.astro` edits where you want real-time diagnostics after every edit:
 
 ```bash
@@ -63,7 +65,7 @@ npm install -g @astrojs/language-server
 |-------|-----|
 | `astro-ls: command not found` | Install `@astrojs/language-server` globally |
 | `Could not resolve typescript` | Install `typescript` in your project or globally |
-| High memory (~400MB) | Disable `astro-lsp`, use `/astro-check:check` instead |
+| High memory (~1.2GB) | This is expected — disable `astro-lsp`, use `/astro-check:check` instead |
 | Plugin not loading | `/plugin` → Errors tab |
 
 ## License

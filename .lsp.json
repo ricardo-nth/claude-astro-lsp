@@ -1,0 +1,9 @@
+{
+  "astro": {
+    "command": "node",
+    "args": ["${CLAUDE_PLUGIN_ROOT}/bin/astro-ls-proxy.mjs"],
+    "extensionToLanguage": {
+      ".astro": "astro"
+    }
+  }
+}

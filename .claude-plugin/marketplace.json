@@ -1,0 +1,14 @@
+{
+  "name": "claude-astro-lsp",
+  "description": "Astro language server plugin for Claude Code",
+  "plugins": [
+    {
+      "name": "astro-lsp",
+      "description": "Astro language server for code intelligence in .astro files — auto-detects TypeScript from your project",
+      "version": "1.0.0",
+      "source": "..",
+      "category": "development",
+      "keywords": ["astro", "lsp", "language-server"]
+    }
+  ]
+}

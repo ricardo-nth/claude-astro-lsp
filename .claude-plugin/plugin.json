@@ -1,0 +1,13 @@
+{
+  "name": "astro-lsp",
+  "version": "1.0.0",
+  "description": "Astro language server plugin for Claude Code — provides code intelligence for .astro files",
+  "author": {
+    "name": "Ricardo",
+    "url": "https://github.com/ricardo-nth"
+  },
+  "repository": "https://github.com/ricardo-nth/claude-astro-lsp",
+  "license": "MIT",
+  "keywords": ["astro", "lsp", "language-server", "code-intelligence"],
+  "lspServers": "./.lsp.json"
+}

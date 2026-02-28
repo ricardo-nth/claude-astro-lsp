@@ -1,6 +1,10 @@
 {
   "name": "claude-astro-lsp",
   "description": "Astro code intelligence for Claude Code — on-demand diagnostics and optional full LSP",
+  "owner": {
+    "name": "Ricardo",
+    "email": "ricardo@nth.dev"
+  },
   "plugins": [
     {
       "name": "astro-check",

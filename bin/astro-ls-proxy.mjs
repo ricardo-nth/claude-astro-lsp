@@ -96,14 +96,8 @@ process.stdin.on("data", (chunk) => {
 
 process.stdin.on("end", () => child.stdin.end());
 
-/**
- * Resolve the path to typescript/lib from the project root.
- * Tries (in order):
- * 1. Project node_modules/typescript/lib (npm/yarn)
- * 2. Project node_modules/.pnpm/typescript@*/node_modules/typescript/lib (pnpm)
- * 3. require.resolve from the project root
- * 4. Global typescript
- */
+// Resolve the path to typescript/lib from the project root.
+// Tries: project node_modules (npm/yarn), pnpm store, then global installs.
 function resolveTsdk(params) {
   const rootUri = params?.rootUri || params?.rootPath;
   const projectRoot = rootUri?.startsWith("file://")

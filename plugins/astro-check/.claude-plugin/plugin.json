@@ -1,0 +1,12 @@
+{
+  "name": "astro-check",
+  "version": "1.0.0",
+  "description": "On-demand Astro diagnostics via /astro-check:check — zero persistent memory cost",
+  "author": {
+    "name": "Ricardo",
+    "url": "https://github.com/ricardo-nth"
+  },
+  "repository": "https://github.com/ricardo-nth/claude-astro-lsp",
+  "license": "MIT",
+  "keywords": ["astro", "diagnostics", "check"]
+}

@@ -1,7 +1,7 @@
 {
   "name": "astro-lsp",
-  "version": "1.0.0",
-  "description": "Astro language server plugin for Claude Code — provides code intelligence for .astro files",
+  "version": "1.1.0",
+  "description": "Full Astro language server for Claude Code — real-time diagnostics, go-to-definition, references. ~400MB memory. Enable for heavy sessions.",
   "author": {
     "name": "Ricardo",
     "url": "https://github.com/ricardo-nth"

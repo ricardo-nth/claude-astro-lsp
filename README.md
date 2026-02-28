@@ -1,19 +1,11 @@
 # claude-astro-lsp
 
-Astro language server plugin for [Claude Code](https://claude.com/claude-code). Gives Claude real-time code intelligence for `.astro` files — instant diagnostics after edits, go-to-definition, find references, and type information.
+Astro code intelligence for [Claude Code](https://claude.com/claude-code). Ships two plugins from one marketplace:
 
-## Prerequisites
-
-- [Claude Code](https://claude.com/claude-code) v1.0.33+
-- [`@astrojs/language-server`](https://github.com/withastro/language-tools) installed globally:
-
-```bash
-# Pick your package manager
-npm install -g @astrojs/language-server
-pnpm add -g @astrojs/language-server
-```
-
-- TypeScript available (project `node_modules` or global install)
+| Plugin | What | Memory | Install |
+|--------|------|--------|---------|
+| **`astro-check`** | On-demand diagnostics via `/astro-check:check` | 0 (runs and exits) | Always enabled |
+| **`astro-lsp`** | Full language server — real-time diagnostics, go-to-definition, references | ~400MB | Opt-in for heavy sessions |
 
 ## Install
 
@@ -21,29 +13,49 @@ pnpm add -g @astrojs/language-server
 # Add the marketplace
 /plugin marketplace add ricardo-nth/claude-astro-lsp
 
-# Install the plugin
+# Install the lightweight check skill (recommended)
+/plugin install astro-check@claude-astro-lsp
+
+# Optionally install the full LSP (disabled by default)
 /plugin install astro-lsp@claude-astro-lsp
 ```
 
-## How it works
+## Usage
 
-The Astro language server requires a `typescript.tsdk` initialization option pointing to TypeScript's `lib` directory. Unlike VS Code or Neovim, Claude Code's LSP config is static JSON with no dynamic resolution.
+### `/astro-check:check` (recommended)
 
-This plugin uses a lightweight Node.js proxy (~90 lines) that intercepts the LSP `initialize` request and auto-resolves `tsdk` from your project. It checks (in order):
+Runs `astro check` on demand — catches type errors, missing imports, and invalid syntax across `.astro` and `.ts` files. No persistent process.
 
-1. `node_modules/typescript/lib` (npm/yarn)
-2. `node_modules/.pnpm/typescript@*/node_modules/typescript/lib` (pnpm)
-3. Global pnpm install (`~/.config/pnpm-global/`)
-4. Homebrew / system Node.js global installs
+```
+/astro-check:check
+```
 
-All other LSP messages pass through transparently with zero overhead.
+You can also add this to your project's `CLAUDE.md` for automatic use:
 
-## What Claude gains
+```markdown
+After editing `.astro` files, run `pnpm astro check` before considering the task complete.
+```
 
-Once installed, Claude gets two capabilities for `.astro` files:
+### Full LSP (heavy sessions)
 
-- **Automatic diagnostics** — after every edit, the language server reports errors and warnings. Claude sees type errors, missing imports, and invalid Astro syntax without running a build.
-- **Code navigation** — jump to definitions, find references, and hover for type info across `.astro` files.
+For sessions with lots of `.astro` edits where you want real-time diagnostics after every edit:
+
+```bash
+/plugin enable astro-lsp@claude-astro-lsp   # requires restart
+/plugin disable astro-lsp@claude-astro-lsp  # when done
+```
+
+The LSP uses a Node.js proxy that auto-resolves `typescript.tsdk` from your project (npm, yarn, pnpm, or global installs).
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) v1.0.33+
+- An [Astro](https://astro.build) project
+- For full LSP mode: [`@astrojs/language-server`](https://github.com/withastro/language-tools) globally installed
+
+```bash
+npm install -g @astrojs/language-server
+```
 
 ## Troubleshooting
 
@@ -51,7 +63,8 @@ Once installed, Claude gets two capabilities for `.astro` files:
 |-------|-----|
 | `astro-ls: command not found` | Install `@astrojs/language-server` globally |
 | `Could not resolve typescript` | Install `typescript` in your project or globally |
-| Plugin not loading | Run `/plugin` → Errors tab to check for details |
+| High memory (~400MB) | Disable `astro-lsp`, use `/astro-check:check` instead |
+| Plugin not loading | `/plugin` → Errors tab |
 
 ## License
 
